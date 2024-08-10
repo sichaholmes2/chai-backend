@@ -19,6 +19,17 @@ dotenv.config({
 //executing the dunction from indexjs of db folder
 connectDB()
 
+//connection to db might take time so .then and catch messages
+.then(()=>{
+    app.listen(process.env.port||8000,()=>{
+console.log(`Server is running at port:${process.env.PORT}`)
+    })
+
+})
+.catch((err)=>{
+    console.log("MONGO db connection failes!!", err)
+})
+
 /*
 import express from "express"
 
