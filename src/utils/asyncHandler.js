@@ -1,9 +1,9 @@
 // 
 //promises code
 const asyncHandler=(requestHandler)=>{
-    (req, res, next)=>{
+    return (req, res, next)=>{
         //promise has resolve reject
-        Promise.resolve(req, res, next).catch((err)=> next(err))
+        Promise.resolve(requestHandler(req, res, next)).catch((err)=> next(err))
     } 
 }
 

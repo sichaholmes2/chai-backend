@@ -5,8 +5,8 @@ class ApiError extends Error{
         message="Something went wrong",
         error=[],
 
-        //error statck
-        statck=""
+        //error stack
+        stack=""
 
     ){
         //to override it
@@ -19,7 +19,7 @@ class ApiError extends Error{
 
         //checking if there is statck(optional else avoid)
         if(statck){
-            this.stack=statck
+            this.stack=stack
         }
         else{
             Error.captureStackTrace(this, this.constructor)
