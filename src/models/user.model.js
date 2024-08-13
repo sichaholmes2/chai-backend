@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-import jwt from "jasonwebtoken"
+import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt"
 
 const userSchema= new Schema(
@@ -69,7 +69,8 @@ userSchema.pre("save", async function(next){
 
    
    //10 is a random number, xould be any samll number
-    this.password=bcrypt.hash(this.password , 10)
+   //it will take time
+    this.password=await bcrypt.hash(this.password , 10)
     next()
 
 })
@@ -124,4 +125,4 @@ userSchema.methods.generateRefreshToken= function(){
 
 
 //we will refer userSchema
-export const User= mongoose.model("User", userSchema)
+export const User = mongoose.model("User", userSchema)
