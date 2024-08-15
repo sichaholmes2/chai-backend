@@ -14,11 +14,11 @@ class ApiError extends Error{
         this.statusCode=statusCode
         this.data= null
         this.success=false
-        this.errors=errors
+        this.errors=error
 
 
         //checking if there is statck(optional else avoid)
-        if(statck){
+        if(stack){
             this.stack=stack
         }
         else{

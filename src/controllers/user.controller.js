@@ -21,7 +21,7 @@ const registerUser = asyncHandler( async (req, res) => {
   //getting details from frontend using req,body
   //destructuring body
   const {fullName, email, username, password}= req.body
-  console.log("email:", email)
+  //console.log("email:", email)
 
 
  //we can only  handle data in json and not files
@@ -47,7 +47,7 @@ const registerUser = asyncHandler( async (req, res) => {
 
   //imported user from user.models.js
   //finding the user from the database that matches the email/username
- const existedUser= User.findOne({
+ const existedUser= await User.findOne({
     //ehatever it gets first out of the two its user
     $or:[{username}, {email}]
   })
@@ -56,6 +56,7 @@ const registerUser = asyncHandler( async (req, res) => {
   if(existedUser){
     throw new ApiError(409,"User with email or username already exists")
   }
+  console.log(req.files)
 
 
 //handling images..avatar
@@ -64,7 +65,17 @@ const registerUser = asyncHandler( async (req, res) => {
    const avatarLocalPath= req.files?.avatar[0]?.path
 
 //doing the same for cover image
-const coverImageLocalPath=req.files?.coverImage[0]?.path
+//const coverImageLocalPath=req.files?.coverImage[0]?.path
+
+
+
+//checking if we are getting tthe array in response and if  the length of the array is >0
+let coverImageLocalPath;
+if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
+    coverImageLocalPath = req.files.coverImage[0].path
+}
+
+
 
 
 if(!avatarLocalPath){
