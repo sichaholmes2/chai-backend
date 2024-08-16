@@ -1,6 +1,6 @@
 //making a router
 import { Router } from "express";
-import { registerUser } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, registerUser } from "../controllers/user.controller.js";
 
 
 //importing upload from multer middleware
@@ -32,5 +32,10 @@ router.route("/register").post(
     registerUser
 )
 
+router.route("/login").post(loginUser)
+
+//secured routes
+//verifying the jwt and logging out
+router.route("/logout").post(verifyJWT, logoutUser)
 
 export default router
