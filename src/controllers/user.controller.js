@@ -176,8 +176,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //checking with username or email
   if (!username && !email) {
-    throw new ApiError(400, "Userame or password is required")
-  }
+    throw new ApiError(400, "username or email is required")
+}
 
   //findone finds the first entry in mongo db..in this case its username or password
   const user = await User.findOne({

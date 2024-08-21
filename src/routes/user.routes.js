@@ -1,6 +1,6 @@
 //making a router
 import { Router } from "express";
-import { loginUser, logoutUser, registerUser,refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetails, updateUserCoverImage, getUserChannelProfile, getWatchHistory } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, registerUser,refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetails, updateUserCoverImage, getUserChannelProfile, getWatchHistory, updateUserAvatar } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 //importing upload from multer middleware
@@ -39,7 +39,7 @@ router.route("/login").post(loginUser)
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/refresh-token").post(refreshAccessToken)
 //route for change password
-router.prototype("/change-password").post(verifyJWT, changeCurrentPassword)
+router.route("/change-password").post(verifyJWT, changeCurrentPassword)
 
 //for current user
 router.route("/current-user").get(verifyJWT, getCurrentUser)
@@ -49,7 +49,7 @@ router.route("/update-account").patch(verifyJWT, updateAccountDetails)
 
 //files
 //for avatar
-router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateAvatar)
+router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateUserAvatar)
 
 // cover image
 router.route("/cover-image").patch(verifyJWT, upload.single("coverImage"), updateUserCoverImage)
