@@ -1,6 +1,6 @@
 //making a router
 import { Router } from "express";
-import { loginUser, logoutUser, registerUser,refreshAccessToken } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, registerUser,refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetails, updateUserCoverImage, getUserChannelProfile, getWatchHistory } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 //importing upload from multer middleware
@@ -38,5 +38,28 @@ router.route("/login").post(loginUser)
 //verifying the jwt and logging out
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/refresh-token").post(refreshAccessToken)
+//route for change password
+router.prototype("/change-password").post(verifyJWT, changeCurrentPassword)
+
+//for current user
+router.route("/current-user").get(verifyJWT, getCurrentUser)
+
+//for updating account details
+router.route("/update-account").patch(verifyJWT, updateAccountDetails)
+
+//files
+//for avatar
+router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateAvatar)
+
+// cover image
+router.route("/cover-image").patch(verifyJWT, upload.single("coverImage"), updateUserCoverImage)
+
+//username
+router.route("/c/:username").get(verifyJWT,getUserChannelProfile)
+
+//watch history
+router.route("/history").get(verifyJWT, getWatchHistory)
+
+
 
 export default router
